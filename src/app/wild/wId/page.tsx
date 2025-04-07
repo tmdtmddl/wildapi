@@ -27,15 +27,17 @@ const WildHomePage = () => {
   const indexOfFirstPost = indexOfLastPost - postPerPage; //처음인덱스
   const wildLength = wilds.length;
 
-  const handlePageChange = (page: number) => {
-    setPage(page);
-  };
-
   const MoveToTop = () => {
     // top:0 => 맨위로  behavior:smooth => 부드럽게 이동할수 있게 설정하는 속성
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  const handlePageChange = (page: number) => {
+    setPage(page);
+    //버튼을 클릭하면 맨위로 이동
+    return MoveToTop();
+  };
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPending, startTransition] = useTransition();
   const fetchWilds = useCallback(() => {
