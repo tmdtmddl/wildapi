@@ -1,11 +1,19 @@
 "use client";
 
-import React, { useCallback, useEffect, useState, useTransition } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import WildItemPage from "../wildItem/page";
 import RootLoading from "@/app/loading";
 import Pagination from "react-js-pagination";
 import { FaCaretUp } from "react-icons/fa";
+import { IoSearch } from "react-icons/io5";
 import "./pagination.css";
+import { useRouter } from "next/navigation";
 
 export interface WildProps {
   capt_de: string;
@@ -20,6 +28,9 @@ export interface WildProps {
 
 const WildHomePage = () => {
   const [wilds, setWilds] = useState<WildProps[]>([]);
+  const [keyWord, setKeyWord] = useState("");
+  const navi = useRouter();
+  const ref = useRef<HTMLInputElement>(null);
 
   const [page, setPage] = useState<number>(1); //현재 페이지 번호
   const postPerPage = 6; //페이지당 게시글 개수
@@ -53,6 +64,25 @@ const WildHomePage = () => {
     });
   }, []);
 
+  const onSubmit = useCallback(() => {
+    if (keyWord.length === 0) {
+      alert("순번을 입력해주세요");
+      return ref.current?.focus();
+    }
+    //isNaN(값)NaN인지 확인하는 함수(NaN = Not a Number (숫자가 아님))
+    if (isNaN(Number(keyWord))) {
+      alert("숫자만 입력해주세요.");
+      return ref.current?.focus();
+    }
+    if (wilds.find((item) => item.sn === Number(keyWord))) {
+      return navi.push(`/wild/${Number(keyWord)}`);
+    } else {
+      alert("찾으시는 항목이 없습니다.");
+      setKeyWord("");
+      return ref.current?.focus();
+    }
+  }, [keyWord, navi, wilds]);
+
   useEffect(() => {
     fetchWilds();
   }, [fetchWilds]);
@@ -78,10 +108,35 @@ const WildHomePage = () => {
   return (
     <div className="flex flex-col gap-y-2.5">
       {isPending && <RootLoading />}
-
+      <form
+        action=""
+        onSubmit={(e) => {
+          e.preventDefault();
+          return onSubmit();
+        }}
+        className="max-w-300 mx-auto flex gap-x-2.5 mt-2.5 items-center"
+      >
+        <label htmlFor="keyword" className="text-xl font-bold">
+          순번찾기
+        </label>
+        <div className="flex items-center border-2 border-lime-800 rounded">
+          <input
+            type="text"
+            id="keyword"
+            value={keyWord}
+            onChange={(e) => setKeyWord(e.target.value)}
+            placeholder="찾는 순번을 숫자만 입력해주세요."
+            className=" min-w-80 p-2.5 outline-none"
+            ref={ref}
+          />
+          <button className="border-l-2  p-2.5   bg-lime-400">
+            <IoSearch className="text-2xl" />
+          </button>
+        </div>
+      </form>
       {wilds.length > 0 ? (
         <>
-          <div className="mt-2.5  mx-auto">
+          <div className="  mx-auto">
             <ul className="grid sm:grid-cols-2 gap-2.5">
               {/* 맵을 slice를 이용해서 현재 페이지에나올것만 보여주기 */}
               {wilds.slice(indexOfFirstPost, indexOfLastPost).map((wild) => (
