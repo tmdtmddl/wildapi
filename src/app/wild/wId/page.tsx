@@ -22,7 +22,7 @@ const WildHomePage = () => {
   const [wilds, setWilds] = useState<WildProps[]>([]);
 
   const [page, setPage] = useState<number>(1); //현재 페이지 번호
-  const postPerPage = 5; //페이지당 게시글 개수
+  const postPerPage = 6; //페이지당 게시글 개수
   const indexOfLastPost = page * postPerPage; //마지막 인덱스
   const indexOfFirstPost = indexOfLastPost - postPerPage; //처음인덱스
   const wildLength = wilds.length;
@@ -81,8 +81,8 @@ const WildHomePage = () => {
 
       {wilds.length > 0 ? (
         <>
-          <div className="mt-2.5 max-w-130 mx-auto">
-            <ul className="flex flex-col gap-y-2.5">
+          <div className="mt-2.5  mx-auto">
+            <ul className="grid sm:grid-cols-2 gap-2.5">
               {/* 맵을 slice를 이용해서 현재 페이지에나올것만 보여주기 */}
               {wilds.slice(indexOfFirstPost, indexOfLastPost).map((wild) => (
                 <li

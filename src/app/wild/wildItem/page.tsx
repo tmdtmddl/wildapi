@@ -15,19 +15,19 @@ const WildItemPage = (wild: WildProps) => {
 
       <Link href={`/wild/${wild.sn}`}>
         <div className="flex flex-col items-start gap-y-1 pl-2.5 pr-80 py-8 relative ">
-          <p>
+          <p className={pW}>
             <b className={fontSize}>순번</b>:{wild.sn}
           </p>
-          <p>
+          <p className={pW}>
             <b className={fontSize}>포획일자</b>:{wild.capt_de}
           </p>
-          <p className="min-w-60">
+          <p className={pW}>
             <b className={fontSize}>포획장소</b>:{wild.capt_plce_adrs}
           </p>
-          <p>
+          <p className={pW}>
             <b className={fontSize}>멧돼지수</b>:{wild.wdbr_co}
           </p>
-          <p>
+          <p className={pW}>
             <b className={fontSize}>고라니수</b>:{wild.wtdr_co}
           </p>
 
@@ -44,3 +44,5 @@ const WildItemPage = (wild: WildProps) => {
 export default WildItemPage;
 
 const fontSize = "text-lg";
+
+const pW = "min-w-60";
