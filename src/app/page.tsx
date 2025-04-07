@@ -5,6 +5,7 @@ import { GiBoarTusks, GiDeerHead, GiDeerTrack } from "react-icons/gi";
 import { useTransition } from "react";
 
 import { twMerge } from "tailwind-merge";
+import RootLoading from "./loading";
 
 const WildPage = () => {
   const navi = useRouter();
@@ -12,8 +13,8 @@ const WildPage = () => {
 
   return (
     <div className="bg-lime-700 h-screen relative ">
-      {/* {isPending && <RootLoading />} */}
-      <div className="relative top-[40%]  ">
+      {isPending && <RootLoading />}
+      <div className="relative top-[40%] hover:animate-pulse ">
         <button
           onClick={() => navi.push("/wild/wId")}
           className="flex flex-col cursor-pointer flex-1 p-5 w-full  relative bg-white min-w-80 max-w-100 mx-auto  rounded  items-center  border-2 border-teal-950 hover:shadow-md hover:shadow-green-800 hover:border-teal-800 "
