@@ -19,7 +19,7 @@ const fetchWild = async (
 
   // console.log(sn, 17);
 
-  const url = `https://www.seogu.go.kr/seoguAPI/3660000/getHrflAnimalCapt?pageNo=1&numOfRows=100&type=json`;
+  const url = `https://www.seogu.go.kr/seoguAPI/3660000/getHrflAnimalCapt?pageNo=1&numOfRows=700&type=json`;
   // 요청할 주소를 만든 거임.(pageNo=1 → 1페이지,numOfRows=20 → 20개 가져와(한페이지에 20개 씩가져와)) [어디에 요청 보낼지 주소 만들기]
   const res = await fetch(url);
   //url에 요청 보내고 응답(res) 받는 거임,fetch()는 "데이터 가져와!" 라는 명령임[	해당 주소에 요청 보내기]

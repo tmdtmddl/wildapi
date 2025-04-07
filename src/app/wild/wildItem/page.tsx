@@ -8,9 +8,11 @@ import RootLoading from "@/app/loading";
 
 const WildItemPage = (wild: WildProps) => {
   const [isPending, startTransition] = useTransition();
+
   return (
     <div>
       {isPending && <RootLoading />}
+
       <Link href={`/wild/${wild.sn}`}>
         <div className="flex flex-col items-start gap-y-1 pl-2.5 pr-80 py-8 relative ">
           <p>

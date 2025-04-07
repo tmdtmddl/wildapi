@@ -51,7 +51,7 @@ const WildHomePage = () => {
       console.log(data);
       setWilds(data.items ?? []);
     });
-  }, []); //최초 한번만 불러옴
+  }, []);
 
   useEffect(() => {
     fetchWilds();
@@ -106,7 +106,11 @@ const WildHomePage = () => {
           />
         </>
       ) : (
-        <div>정보가 없습니다.</div>
+        <div className="max-w-200 mx-auto mt-20">
+          <p className="text-4xl">
+            데이터를 불러오는 중이거나 정보가 없습니다.
+          </p>
+        </div>
       )}
 
       {isScrolled && (
