@@ -79,19 +79,35 @@ const WildHomePage = () => {
     <div className="flex flex-col gap-y-2.5">
       {isPending && <RootLoading />}
 
-      <div className="mt-2.5 max-w-130 mx-auto">
-        <ul className="flex flex-col gap-y-2.5">
-          {/* 맵을 slice를 이용해서 현재 페이지에나올것만 보여주기 */}
-          {wilds.slice(indexOfFirstPost, indexOfLastPost).map((wild) => (
-            <li
-              key={wild.sn}
-              className="border-3 border-gray-400 bg-lime-50 rounded hover:border-green-800 hover:shadow-xl"
-            >
-              <WildItemPage {...wild} />
-            </li>
-          ))}
-        </ul>
-      </div>
+      {wilds.length > 0 ? (
+        <>
+          <div className="mt-2.5 max-w-130 mx-auto">
+            <ul className="flex flex-col gap-y-2.5">
+              {/* 맵을 slice를 이용해서 현재 페이지에나올것만 보여주기 */}
+              {wilds.slice(indexOfFirstPost, indexOfLastPost).map((wild) => (
+                <li
+                  key={wild.sn}
+                  className="border-3 border-gray-400 bg-lime-50 rounded hover:border-green-800 hover:shadow-xl"
+                >
+                  <WildItemPage {...wild} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Pagination
+            activePage={page} //현재페이지
+            itemsCountPerPage={postPerPage} //한페이지랑 보여줄 아이템 갯수
+            totalItemsCount={wildLength} //총 아이템갯수
+            pageRangeDisplayed={5} //paginator의 페이지 범위
+            prevPageText={"<"} //이전을 나타낼 텍스트
+            nextPageText={">"} //다음을 나타낼 텍스트
+            onChange={handlePageChange} //페이지변경을 핸들링하는 함수
+            //Pagination 컴포넌트는 사용자가 페이지 번호를 클릭할 때마다, 그 클릭된 페이지 번호를 onChange 핸들러 함수에 인수로 전달합니다.
+          />
+        </>
+      ) : (
+        <div>정보가 없습니다.</div>
+      )}
 
       {isScrolled && (
         <div
@@ -101,17 +117,6 @@ const WildHomePage = () => {
           <FaCaretUp className="text-xl text-green-950" />
         </div>
       )}
-
-      <Pagination
-        activePage={page} //현재페이지
-        itemsCountPerPage={postPerPage} //한페이지랑 보여줄 아이템 갯수
-        totalItemsCount={wildLength} //총 아이템갯수
-        pageRangeDisplayed={5} //paginator의 페이지 범위
-        prevPageText={"<"} //이전을 나타낼 텍스트
-        nextPageText={">"} //다음을 나타낼 텍스트
-        onChange={handlePageChange} //페이지변경을 핸들링하는 함수
-        //Pagination 컴포넌트는 사용자가 페이지 번호를 클릭할 때마다, 그 클릭된 페이지 번호를 onChange 핸들러 함수에 인수로 전달합니다.
-      />
     </div>
   );
 };
