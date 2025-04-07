@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState, useTransition } from "react";
 import WildItemPage from "../wildItem/page";
 import RootLoading from "@/app/loading";
 import Pagination from "react-js-pagination";
+import { FaCaretUp } from "react-icons/fa";
 import "./pagination.css";
 
 export interface WildProps {
@@ -30,6 +31,12 @@ const WildHomePage = () => {
     setPage(page);
   };
 
+  const MoveToTop = () => {
+    // top:0 => 맨위로  behavior:smooth => 부드럽게 이동할수 있게 설정하는 속성
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isPending, startTransition] = useTransition();
   const fetchWilds = useCallback(() => {
     startTransition(async () => {
@@ -42,44 +49,68 @@ const WildHomePage = () => {
       console.log(data);
       setWilds(data.items ?? []);
     });
-  }, []);
+  }, []); //최초 한번만 불러옴
 
   useEffect(() => {
     fetchWilds();
   }, [fetchWilds]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 1) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    //window에 이벤트를 추가해줄건데 추가해줄 이벤트는 스크롤이고 실행할함수는 handleSroll임
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      //제거도 해줘야됨
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <>
+    <div className="flex flex-col gap-y-2.5">
       {isPending && <RootLoading />}
-      <div className="flex flex-col gap-y-2.5">
-        {isPending && <RootLoading />}
 
-        <div className="mt-2.5 max-w-130 mx-auto">
-          <ul className="flex flex-col gap-y-2.5">
-            {/* 맵을 slice를 이용해서 현재 페이지에나올것만 보여주기 */}
-            {wilds.slice(indexOfFirstPost, indexOfLastPost).map((wild) => (
-              <li
-                key={wild.sn}
-                className="border-3 border-gray-400 bg-lime-50 rounded hover:border-green-800 hover:shadow-xl"
-              >
-                <WildItemPage {...wild} />
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <Pagination
-          activePage={page} //현재페이지
-          itemsCountPerPage={postPerPage} //한페이지랑 보여줄 아이템 갯수
-          totalItemsCount={wildLength} //총 아이템갯수
-          pageRangeDisplayed={5} //paginator의 페이지 범위
-          prevPageText={"<"} //이전을 나타낼 텍스트
-          nextPageText={">"} //다음을 나타낼 텍스트
-          onChange={handlePageChange} //페이지변경을 핸들링하는 함수
-          //Pagination 컴포넌트는 사용자가 페이지 번호를 클릭할 때마다, 그 클릭된 페이지 번호를 onChange 핸들러 함수에 인수로 전달합니다.
-        />
+      <div className="mt-2.5 max-w-130 mx-auto">
+        <ul className="flex flex-col gap-y-2.5">
+          {/* 맵을 slice를 이용해서 현재 페이지에나올것만 보여주기 */}
+          {wilds.slice(indexOfFirstPost, indexOfLastPost).map((wild) => (
+            <li
+              key={wild.sn}
+              className="border-3 border-gray-400 bg-lime-50 rounded hover:border-green-800 hover:shadow-xl"
+            >
+              <WildItemPage {...wild} />
+            </li>
+          ))}
+        </ul>
       </div>
-    </>
+
+      {isScrolled && (
+        <div
+          className="fixed border right-3 bottom-20 p-1 bg-lime-200 rounded-xl border-lime-500"
+          onClick={() => MoveToTop()}
+        >
+          <FaCaretUp className="text-xl text-green-950" />
+        </div>
+      )}
+
+      <Pagination
+        activePage={page} //현재페이지
+        itemsCountPerPage={postPerPage} //한페이지랑 보여줄 아이템 갯수
+        totalItemsCount={wildLength} //총 아이템갯수
+        pageRangeDisplayed={5} //paginator의 페이지 범위
+        prevPageText={"<"} //이전을 나타낼 텍스트
+        nextPageText={">"} //다음을 나타낼 텍스트
+        onChange={handlePageChange} //페이지변경을 핸들링하는 함수
+        //Pagination 컴포넌트는 사용자가 페이지 번호를 클릭할 때마다, 그 클릭된 페이지 번호를 onChange 핸들러 함수에 인수로 전달합니다.
+      />
+    </div>
   );
 };
 
