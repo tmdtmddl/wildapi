@@ -12,7 +12,7 @@ const WildPage = () => {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <div className=" h-screen relative bg-linear-to-t from-lime-500 to-lime-700">
+    <div className=" h-screen relative bg-linear-to-t from-lime-500 to-lime-800">
       {isPending && <RootLoading />}
       <div className="relative top-[40%] hover:animate-pulse ">
         <button

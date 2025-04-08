@@ -129,7 +129,7 @@ const WildHomePage = () => {
             className=" min-w-80 p-2.5 outline-none"
             ref={ref}
           />
-          <button className="border-l-2  p-2.5   bg-lime-400">
+          <button className="border-l-2 border-lime-800  p-2.5   bg-lime-400">
             <IoSearch className="text-2xl" />
           </button>
         </div>
