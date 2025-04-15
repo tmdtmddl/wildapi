@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/navermaps": "^3.7.9",
     "@types/react-js-pagination": "^3.0.7",
     "next": "15.2.4",
     "react": "^19.0.0",
