@@ -106,7 +106,7 @@ const WildHomePage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-y-2.5">
+    <div className="flex flex-col gap-y-2.5 bg-white">
       {isPending && <RootLoading />}
       <form
         action=""
@@ -114,7 +114,7 @@ const WildHomePage = () => {
           e.preventDefault();
           return onSubmit();
         }}
-        className="max-w-300 mx-auto flex gap-x-2.5 mt-2.5 items-center"
+        className="max-w-300 mx-auto flex gap-x-2.5 mt-2.5 items-center text-black"
       >
         <label htmlFor="keyword" className="text-xl font-bold">
           순번찾기

@@ -14,7 +14,7 @@ const WildItemPage = (wild: WildProps) => {
       {isPending && <RootLoading />}
 
       <Link href={`/wild/${wild.sn}`}>
-        <div className="flex flex-col items-start gap-y-1 pl-2.5 pr-80 py-8 relative ">
+        <div className="flex flex-col items-start gap-y-1 pl-2.5 pr-80 py-8 relative text-black  ">
           <p className={pW}>
             <b className={fontSize}>순번</b>:{wild.sn}
           </p>

@@ -19,7 +19,7 @@ const WildPage = () => {
           onClick={() => navi.push("/wild/wId")}
           className="flex flex-col cursor-pointer flex-1 p-5 w-full  relative bg-white min-w-80 max-w-100 mx-auto  rounded  items-center  border-2 border-teal-950 hover:shadow-md hover:shadow-green-800 hover:border-teal-800 "
         >
-          <p className="font-bold text-3xl  hover:text-teal-800">
+          <p className="font-bold text-3xl  hover:text-teal-800 text-black">
             유해야생동물 포획 현황
           </p>
 

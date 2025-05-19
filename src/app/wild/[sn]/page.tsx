@@ -55,16 +55,16 @@ const WildDtailPage = async (props: PageProps<{ sn: string }>) => {
   // const navi = useRouter();
 
   return (
-    <div>
+    <div className="bg-white h-screen">
       <Link
         href={"/wild/wId"}
-        className="flex gap-x-1  items-center text-lg font-bold p-2.5"
+        className="flex gap-x-1  items-center text-lg font-bold p-2.5 text-black"
       >
         <IoIosArrowBack />
         뒤로가기
       </Link>
 
-      <div className=" pl-10 pr-80 py-25 bg-lime-50 max-w-150 min-w-135 border-3 border-green-900  mx-auto rounded mb-2.5  relative min-h-screen">
+      <div className=" pl-10 pr-80 py-25 bg-lime-50 max-w-150 min-w-135 border-3 border-green-900 text-black  mx-auto rounded  relative ">
         <div className="flex flex-col items-start gap-y-5">
           <p>
             <b className={fontSize}>순번</b>:{wild?.sn}
